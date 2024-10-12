@@ -9,9 +9,9 @@
 5. Launch the random_walk.py script using rosrun to enable autonomous movement.
 
 
-### Create a Catkin Workspace
-```bash
 
+```bash
+### Create a Catkin Workspace
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin_make
@@ -32,7 +32,7 @@ rosdep update
 
 
 ###  Creating a ROS Package
-```bash
+
 # Navigate to Your Catkin Workspace:
 cd ~/catkin_ws/src
 
