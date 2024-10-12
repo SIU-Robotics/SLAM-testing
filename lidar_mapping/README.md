@@ -1,7 +1,7 @@
 ## How to create a LIDAR mapping and localization using SLAM (Simultaneous Localization and Mapping) techniques.
 ## ROS Autonomous Mode: Random Walk Script
-###Used GMapping package and TurtleBot3 for simulation
-####Steps:
+### Used GMapping package and TurtleBot3 for simulation
+#### Steps:
 1. Create and build your ROS package.
 2. Set up the workspace and dependencies.
 3. Create and make the random_walk.py script executable.
