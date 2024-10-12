@@ -8,11 +8,10 @@
 4. Run the ROS Master (roscore).
 5. Launch the random_walk.py script using rosrun to enable autonomous movement.
 
+
 ### Create a Catkin Workspace
-
-A catkin workspace is required for managing your ROS packages. If you don’t have one yet, create it by following these steps:
-
 ```bash
+
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin_make
@@ -32,8 +31,8 @@ sudo rosdep init
 rosdep update
 
 
-###  **Creating a ROS Package**
-
+###  Creating a ROS Package
+```bash
 # Navigate to Your Catkin Workspace:
 cd ~/catkin_ws/src
 
