@@ -31,7 +31,8 @@ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 sudo rosdep init
 rosdep update
 
-### Creating a ROS Package
+
+###  **Creating a ROS Package**
 
 # Navigate to Your Catkin Workspace:
 cd ~/catkin_ws/src
