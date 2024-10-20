@@ -1,39 +1,50 @@
 #!/usr/bin/env python3
 
-import rospy
+import rclpy
+from rclpy.node import Node
 import random
 from geometry_msgs.msg import Twist
 
-def random_walk():
-    # Initialize the ROS node
-    rospy.init_node('random_walk', anonymous=True)
-    
-    # Create a publisher to publish velocity commands to the /cmd_vel topic
-    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-    
-    # Set the rate of publishing messages (10 Hz)
-    rate = rospy.Rate(10)  # 10 Hz
-    
-    # Create a Twist message to store the linear and angular velocities
-    twist = Twist()
-
-    # Loop to keep sending random velocity commands until the node is shut down
-    while not rospy.is_shutdown():
-        # Random linear velocity between 0 and 0.3 m/s
-        twist.linear.x = random.uniform(0.0, 0.3)
+class RandomWalk(Node):
+    def __init__(self):
+        super().__init__('random_walk')
         
-        # Random angular velocity between -1.0 and 1.0 rad/s (to turn the robot)
-        twist.angular.z = random.uniform(-1.0, 1.0)
+        # Create a publisher to publish velocity commands to the /cmd_vel topic
+        self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10)
+        
+        # Set the rate of publishing messages (10 Hz)
+        self.timer = self.create_timer(0.1, self.timer_callback)  # 0.1 seconds = 10 Hz
+        
+        # Create a Twist message to store the linear and angular velocities
+        self.twist = Twist()
+
+    def timer_callback(self):
+        # Random linear velocity between 0 and 0.3 m/s
+        self.twist.linear.x = random.uniform(0.0, 0.3)
+        
+        # Random angular velocity between -1.0 and 1.0 rad/s
+        self.twist.angular.z = random.uniform(-1.0, 1.0)
         
         # Publish the velocity command to the /cmd_vel topic
-        pub.publish(twist)
-        
-        # Sleep for a while to maintain the 10 Hz rate
-        rate.sleep()
+        self.publisher_.publish(self.twist)
+
+def main(args=None):
+    # Initialize ROS 2 Python client library
+    rclpy.init(args=args)
+    
+    # Create the RandomWalk node
+    random_walk = RandomWalk()
+    
+    # Spin the node to keep it alive and processing callbacks
+    rclpy.spin(random_walk)
+    
+    # Shutdown the node once finished
+    random_walk.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == '__main__':
     try:
-        # Call the random_walk function to start the autonomous movement
-        random_walk()
-    except rospy.ROSInterruptException:
+        # Call the main function to start the node
+        main()
+    except KeyboardInterrupt:
         pass
